@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+
+// const [tarea, setTarea] = useState("");
 
 export function Home() {
 	return (
@@ -8,7 +10,11 @@ export function Home() {
 				<div className="listadoVacio">
 					<ul class="list-group">
 						<li className="list-group-item">
-							<input type="text" />
+							<input
+								className="entrada"
+								type="text"
+								placeholder="Create Task"
+							/>
 						</li>
 						<li className="list-group-item">
 							Dapibus ac facilisis in
@@ -21,7 +27,7 @@ export function Home() {
 					</ul>
 				</div>
 				<div className="listadoIniciado">
-					<p>Tareas Pendientes</p>
+					<p>Pending Tasks</p>
 				</div>
 			</div>
 		</div>

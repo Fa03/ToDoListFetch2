@@ -7,8 +7,10 @@
 // }
 
 .main{
+    display: flex;
     background-color: black;
     padding-top: 40px;  //deja el margen superior entre negro & blanco
+    padding-bottom: 600px;  //deja el margen superior entre negro & blanco
     // background-size: cover;
 }
 
@@ -52,7 +54,7 @@ input {
     border-color: rgba(252, 239, 239, 0.486);
     background-color: white;
     outline: none;
-
+       
 }
 
 .listadoIniciado{
@@ -60,4 +62,13 @@ input {
     font-size: medium;
     font-family: Geneva;
     padding-left: 80px;
+}
+
+::placeholder {
+    color: rgb(238, 195, 195);
+      
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+  color: transparent;
 }
