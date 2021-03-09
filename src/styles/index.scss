@@ -41,6 +41,7 @@
     padding-left: 60px;
     padding-right: 60px;
     border-radius: 10px;
+    flex-direction: column;
 }
 
 input {
@@ -71,4 +72,18 @@ input {
 
 [placeholder]:focus::-webkit-input-placeholder {
   color: transparent;
+}
+
+.button {
+    text-decoration: none;
+    border-style: none;
+    cursor: pointer;
+    float:right
+    
+        
+}
+
+.button:hover {
+  background-color: grey; 
+  color: white;
 }

@@ -1,7 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import eliminarTarea from "./eliminarTarea.js";
 
-export function listIncrement () {
-        
-
-    return  ;
+export default function listIncrement(arreglo) {
+	return (
+		<li className="list-group-item">
+			{arreglo.map(tarea => {
+				return (
+					<li className="list-group-item" key={`tarea_${tarea}`}>
+						{tarea}
+						<button className="button" onClick={eliminarTarea}>
+							&#10003;
+						</button>
+					</li>
+				);
+			})}
+		</li>
+	);
 }

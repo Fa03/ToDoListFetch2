@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import numeroTareasPie, { cantidadTareas } from "./numeroTareasPie";
+import listIncrement from "./listIncrement";
 
 export function Home() {
 	let [tarea, setTarea] = useState([]);
@@ -9,11 +10,11 @@ export function Home() {
 			setTarea(tarea.concat(evento.target.value)); // .push no funciona en REACT genera el lenght no el dato
 			evento.target.value = ""; //limpia el valor del textarea despues del ENTER
 
-			console.log("si Entro");
+			// console.log("si Entro");
 		}
 
-		console.log(tarea);
-		console.log(tarea);
+		// console.log(tarea);
+		// console.log(tarea);
 	};
 
 	return (
@@ -31,13 +32,8 @@ export function Home() {
 							/>
 						</li>
 						<li className="list-group-item">
-							Dapibus ac facilisis in
+							{listIncrement(tarea)}
 						</li>
-						<li className="list-group-item">Morbi leo risus</li>
-						<li className="list-group-item">
-							Porta ac consectetur ac
-						</li>
-						<li className="list-group-item">Vestibulum at eros</li>
 					</ul>
 				</div>
 				<div className="listadoIniciado">
