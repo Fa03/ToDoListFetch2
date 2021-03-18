@@ -85,3 +85,28 @@ input {
   background-color: grey; 
   color: white;
  }
+
+ #button1 {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  background-color: #eee3e3;
+  color: rgb(236, 123, 123);
+//   font-weight: bold;
+  border: 2px solid rgb(238, 133, 133);
+  border-radius: 4px;
+ }
+
+ #button1 {
+  transition-duration: 0.4s;
+}
+
+#button1:hover {
+  background-color: red;
+  color: white;
+}
+  
+#button1:active{
+    background:rgb(243, 104, 104);
+}
+

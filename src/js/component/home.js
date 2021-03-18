@@ -1,19 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import numeroTareasPie, { cantidadTareas } from "./numeroTareasPie";
 
 export function Home() {
 	let [tarea, setTarea] = useState([]);
+
+	useEffect(() => {
+		getRefresh();
+	}, []);
 
 	let agregarTarea = (evento, teclaPresionada) => {
 		if (teclaPresionada === 13) {
 			if (evento.target.value == "") {
 				alert("Task space is empty");
 			} else {
-				setTarea(tarea.concat(evento.target.value)); // .push no funciona en REACT genera el lenght no el dato
+				let nueva = [
+					...tarea,
+					{ label: evento.target.value, done: false }
+				];
+				setTarea(nueva);
+				console.error(nueva);
+
+				let url =
+					"https://assets.breatheco.de/apis/fake/todos/user/Fa03";
+				let optionsPut = {
+					method: "PUT",
+					body: JSON.stringify(nueva),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				};
+				fetch(url, optionsPut);
+
+				// .catch(error => {
+				// 	alert("Please enter task");
+				// });
 
 				evento.target.value = ""; //limpia el valor del textarea despues del ENTER
 			}
 		}
+	};
+
+	let getRefresh = async () => {
+		let url = "https://assets.breatheco.de/apis/fake/todos/user/Fa03";
+		await fetch(url)
+			.then(respuesta => {
+				return respuesta.json();
+			})
+			.then(body => {
+				setTarea(body);
+			});
 	};
 
 	let listIncrement = () => {
@@ -22,7 +57,7 @@ export function Home() {
 				{tarea.map((t, index) => {
 					return (
 						<li className="list-group-item" key={index}>
-							{t}
+							{t.label}
 							<button
 								className="button"
 								onClick={e => eliminarTarea(index)}>
@@ -36,9 +71,68 @@ export function Home() {
 	};
 
 	const eliminarTarea = indice => {
-		let newTarea = [...tarea.slice(0, indice), ...tarea.slice(indice + 1)];
+		let newTarea = [];
+		if (tarea.length == 1) {
+			vaciarAPI();
+		} else {
+			newTarea = [...tarea.slice(0, indice), ...tarea.slice(indice + 1)];
+		}
+
 		setTarea(newTarea);
+
+		let url = "https://assets.breatheco.de/apis/fake/todos/user/Fa03";
+		let optionsPut = {
+			method: "PUT",
+			body: JSON.stringify(newTarea),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		};
+		fetch(url, optionsPut)
+			.then(respuesta => {
+				return respuesta.json();
+			})
+			.then(body => {
+				setTarea(newTarea);
+			});
+
+		// .catch(error => {
+		// 	alert("Please enter task");
+		// });
 	};
+
+	const vaciarAPI = async indice => {
+		let newTarea = [];
+
+		let url = "https://assets.breatheco.de/apis/fake/todos/user/Fa03";
+		let optionsDelete = {
+			method: "DELETE",
+			body: JSON.stringify(newTarea),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		};
+		await fetch(url, optionsDelete)
+			.then(respuesta => {
+				return respuesta.json();
+			})
+			.then(body => {
+				setTarea([]);
+			});
+
+		let optionsPost = {
+			method: "Post",
+			body: JSON.stringify([]),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		};
+		await fetch(url, optionsPost);
+		// .then(response => response.text())
+		// .then(result => console.log("Resultado", result));
+	};
+
+	//se forma la pagina --->
 
 	return (
 		<div className="main">
@@ -55,6 +149,9 @@ export function Home() {
 							/>
 						</li>
 						<li className="list-group-item">{listIncrement()}</li>
+						<button id="button1" onClick={e => vaciarAPI()}>
+							Delete All
+						</button>
 					</ul>
 				</div>
 				<div className="listadoIniciado">
