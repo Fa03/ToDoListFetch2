@@ -121,6 +121,7 @@ export function Home() {
 			});
 
 		let optionsPost = {
+			//con este se hace el POST para que al eliminar todas las tareas cree el usuario para la sieguiente "Tarea"
 			method: "Post",
 			body: JSON.stringify([]),
 			headers: {
